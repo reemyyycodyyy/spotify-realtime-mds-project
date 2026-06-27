@@ -1,0 +1,7 @@
+.env
+__pycache__/
+.pytest_cache/
+*.db
+logs/
+dbt_packages/
+target/
