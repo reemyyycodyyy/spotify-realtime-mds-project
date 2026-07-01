@@ -1,7 +1,13 @@
+# Ignore local DuckDB database files
+*.db
+*.duckdb
+
+# Ignore python and environment configs
 .env
 __pycache__/
-.pytest_cache/
-*.db
-logs/
-dbt_packages/
-target/
+*.pyc
+
+# dbt artifacts
+dbt_transformation/target/
+dbt_transformation/dbt_packages/
+dbt_transformation/logs/

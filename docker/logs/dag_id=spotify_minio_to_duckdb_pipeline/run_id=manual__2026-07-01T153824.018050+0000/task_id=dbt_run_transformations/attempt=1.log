@@ -1,0 +1,42 @@
+[2026-07-01T15:38:50.367+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-07-01T15:38:50.546+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: spotify_minio_to_duckdb_pipeline.dbt_run_transformations manual__2026-07-01T15:38:24.018050+00:00 [queued]>
+[2026-07-01T15:38:50.611+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: spotify_minio_to_duckdb_pipeline.dbt_run_transformations manual__2026-07-01T15:38:24.018050+00:00 [queued]>
+[2026-07-01T15:38:50.614+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-07-01T15:38:50.660+0000] {taskinstance.py:2330} INFO - Executing <Task(BashOperator): dbt_run_transformations> on 2026-07-01 15:38:24.018050+00:00
+[2026-07-01T15:38:50.682+0000] {standard_task_runner.py:64} INFO - Started process 56 to run task
+[2026-07-01T15:38:50.693+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'spotify_minio_to_duckdb_pipeline', 'dbt_run_transformations', 'manual__2026-07-01T15:38:24.018050+00:00', '--job-id', '29', '--raw', '--subdir', 'DAGS_FOLDER/minio-to-kafka.py', '--cfg-path', '/tmp/tmp701pv6l6']
+[2026-07-01T15:38:50.708+0000] {standard_task_runner.py:91} INFO - Job 29: Subtask dbt_run_transformations
+[2026-07-01T15:38:51.012+0000] {task_command.py:426} INFO - Running <TaskInstance: spotify_minio_to_duckdb_pipeline.dbt_run_transformations manual__2026-07-01T15:38:24.018050+00:00 [running]> on host 0e8ad39bfb13
+[2026-07-01T15:38:51.347+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='spotify_minio_to_duckdb_pipeline' AIRFLOW_CTX_TASK_ID='dbt_run_transformations' AIRFLOW_CTX_EXECUTION_DATE='2026-07-01T15:38:24.018050+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-07-01T15:38:24.018050+00:00'
+[2026-07-01T15:38:51.353+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-07-01T15:38:51.472+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-07-01T15:38:51.477+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'pip install dbt-duckdb --quiet && cd /opt/***/dbt_transformation && dbt run --profiles-dir .']
+[2026-07-01T15:38:51.518+0000] {subprocess.py:86} INFO - Output:
+[2026-07-01T15:39:06.826+0000] {subprocess.py:93} INFO - 
+[2026-07-01T15:39:06.846+0000] {subprocess.py:93} INFO - [notice] A new release of pip is available: 24.2 -> 26.1.2
+[2026-07-01T15:39:06.860+0000] {subprocess.py:93} INFO - [notice] To update, run: pip install --upgrade pip
+[2026-07-01T15:39:37.042+0000] {subprocess.py:93} INFO - [0m15:39:37  Running with dbt=1.11.12
+[2026-07-01T15:39:37.193+0000] {subprocess.py:93} INFO - [0m15:39:37  Encountered an error:
+[2026-07-01T15:39:37.198+0000] {subprocess.py:93} INFO - Runtime Error
+[2026-07-01T15:39:37.206+0000] {subprocess.py:93} INFO -   Could not find profile named 'dbt_transformation'
+[2026-07-01T15:39:39.950+0000] {subprocess.py:97} INFO - Command exited with return code 2
+[2026-07-01T15:39:39.965+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-07-01T15:39:40.068+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 243, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 2.
+[2026-07-01T15:39:40.118+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=spotify_minio_to_duckdb_pipeline, task_id=dbt_run_transformations, run_id=manual__2026-07-01T15:38:24.018050+00:00, execution_date=20260701T153824, start_date=20260701T153850, end_date=20260701T153940
+[2026-07-01T15:39:41.152+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 29 for task dbt_run_transformations (Bash command failed. The command returned a non-zero exit code 2.; 56)
+[2026-07-01T15:39:41.232+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-07-01T15:39:41.319+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-07-01T15:39:41.326+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

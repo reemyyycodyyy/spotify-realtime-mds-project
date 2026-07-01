@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: minio_raw
+    tables:
+      - name: raw_tracks
+        meta:
+          external_location: "s3://spotify/**/*.json"

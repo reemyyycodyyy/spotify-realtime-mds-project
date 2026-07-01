@@ -1,0 +1,41 @@
+[2026-06-30T21:22:48.430+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-06-30T21:22:48.874+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: spotify_minio_to_duckdb_pipeline.dbt_run_transformations scheduled__2026-06-30T19:00:00+00:00 [queued]>
+[2026-06-30T21:22:49.125+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: spotify_minio_to_duckdb_pipeline.dbt_run_transformations scheduled__2026-06-30T19:00:00+00:00 [queued]>
+[2026-06-30T21:22:49.266+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-06-30T21:22:49.539+0000] {taskinstance.py:2330} INFO - Executing <Task(BashOperator): dbt_run_transformations> on 2026-06-30 19:00:00+00:00
+[2026-06-30T21:22:49.650+0000] {standard_task_runner.py:64} INFO - Started process 612 to run task
+[2026-06-30T21:22:49.672+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'spotify_minio_to_duckdb_pipeline', 'dbt_run_transformations', 'scheduled__2026-06-30T19:00:00+00:00', '--job-id', '12', '--raw', '--subdir', 'DAGS_FOLDER/minio-to-kafka.py', '--cfg-path', '/tmp/tmp7opands7']
+[2026-06-30T21:22:49.771+0000] {standard_task_runner.py:91} INFO - Job 12: Subtask dbt_run_transformations
+[2026-06-30T21:22:51.489+0000] {task_command.py:426} INFO - Running <TaskInstance: spotify_minio_to_duckdb_pipeline.dbt_run_transformations scheduled__2026-06-30T19:00:00+00:00 [running]> on host 7125e1ba98f1
+[2026-06-30T21:22:52.502+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='spotify_minio_to_duckdb_pipeline' AIRFLOW_CTX_TASK_ID='dbt_run_transformations' AIRFLOW_CTX_EXECUTION_DATE='2026-06-30T19:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-06-30T19:00:00+00:00'
+[2026-06-30T21:22:52.546+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-06-30T21:22:52.928+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-06-30T21:22:52.985+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'pip install dbt-duckdb --quiet && cd /opt/***/dbt_transformation && dbt run']
+[2026-06-30T21:22:53.177+0000] {subprocess.py:86} INFO - Output:
+[2026-06-30T21:23:19.203+0000] {local_task_job_runner.py:124} ERROR - Received SIGTERM. Terminating subprocesses
+[2026-06-30T21:23:19.277+0000] {process_utils.py:132} INFO - Sending 15 to group 612. PIDs of all processes in the group: [613, 614, 612]
+[2026-06-30T21:23:19.314+0000] {process_utils.py:87} INFO - Sending the signal 15 to group 612
+[2026-06-30T21:23:19.330+0000] {taskinstance.py:2611} ERROR - Received SIGTERM. Terminating subprocesses.
+[2026-06-30T21:23:19.351+0000] {subprocess.py:104} INFO - Sending SIGTERM signal to process group
+[2026-06-30T21:23:19.422+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-06-30T21:23:19.623+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/bash.py", line 234, in execute
+    result = self.subprocess_hook.run_command(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/hooks/subprocess.py", line 91, in run_command
+    for raw_line in iter(self.sub_process.stdout.readline, b""):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 2613, in signal_handler
+    raise AirflowTaskTerminated("Task received SIGTERM signal")
+airflow.exceptions.AirflowTaskTerminated: Task received SIGTERM signal
+[2026-06-30T21:23:19.679+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=spotify_minio_to_duckdb_pipeline, task_id=dbt_run_transformations, run_id=scheduled__2026-06-30T19:00:00+00:00, execution_date=20260630T190000, start_date=20260630T212249, end_date=20260630T212319
+[2026-06-30T21:23:20.048+0000] {process_utils.py:80} INFO - Process psutil.Process(pid=614, status='terminated', started='21:22:52') (614) terminated with exit code None
