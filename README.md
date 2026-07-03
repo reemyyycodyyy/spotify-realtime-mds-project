@@ -8,7 +8,7 @@ An end-to-end data engineering pipeline designed to ingest, process, transform, 
 
 ### Pipeline Blueprint
 Below is the structural flow of data as it steps through your containerized local stack from ingestion to business intelligence:
-![Project Architecture Diagram](Images/Project_Architecture.png)
+![Project Architecture Diagram](Images/Projcet_Architecture.png)
 ---
 
 ## 💾 Medallion Data Models
