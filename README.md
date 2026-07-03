@@ -8,7 +8,7 @@ An end-to-end data engineering pipeline designed to ingest, process, transform, 
 
 ### Pipeline Blueprint
 Below is the structural flow of data as it steps through your containerized local stack from ingestion to business intelligence:
-![Project Architecture Diagram](Images/Project Architecture.png)
+![Project Architecture Diagram](Images/Project_Architecture.png)
 ---
 
 ## 💾 Medallion Data Models
@@ -41,7 +41,7 @@ Aggregates behavioral clickstream interactions to construct granular, high-perfo
 ## 🎨 Power BI Executive Analytics Dashboard
 
 The gold analytics data tier connects natively to an executive dashboard layout designed around Spotify's brand visual identity guidelines.
-![Spotify Analytics Dashboard Preview](Images/Spotify Real Time Dashboard)
+![Spotify Analytics Dashboard Preview](Images/Spotify_Real_Time_Dashboard.png)
 ---
 
 ## 🛠️ Tech Stack & Environment Architecture
