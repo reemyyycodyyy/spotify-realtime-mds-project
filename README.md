@@ -1,46 +1,67 @@
-# Real-Time Spotify Analysis Pipeline
+# 🎵 Spotify End-to-End Modern Data Stack (MDS) Streaming Pipeline
 
-This project implements an end-to-end real-time data engineering pipeline designed to ingest, stream, store, transform, and visualize streaming Spotify data. The entire infrastructure is containerized using Docker to ensure seamless orchestration, scalability, and modular deployment.
-
----
-
-## Architecture Overview
-
-The pipeline handles streaming data through the following decoupled layers:
-
-1. **Data Source & Streaming:** Streaming real-time Spotify API data is ingested continuously into **Apache Kafka** (managed via Zookeeper and monitored using Kafdrop).
-2. **Data Storage (Landing Layer):** Kafka consumers land raw JSON/event payloads into an Amazon S3-compatible object storage layer via **MinIO**.
-3. **Orchestration:** **Apache Airflow** schedules, monitors, and automates the flow of data across the pipeline layers.
-4. **Data Warehouse (Medallion Architecture):** Data is loaded into **Snowflake** and systematically transformed using **dbt (Data Build Tool)** across three schema layers:
-   * 🥉 **Raw Layer:** Staging area for unfiltered, freshly landed storage data.
-   * 🥈 **Cleaned Layer:** Deduplicated, structured, and validated data models.
-   * 🥇 **Business Ready Layer:** Aggregated, analytical data marts optimized for business intelligence reporting.
-5. **Visualization:** Downstream business layers consume analytical tables directly into **Power BI** for interactive real-time dashboarding.
+An end-to-end data engineering pipeline designed to ingest, process, transform, and visualize simulated real-time Spotify streaming data. This architecture implements a robust **Medallion Architecture** using Docker orchestration to transform raw clickstream logs into production-ready analytical insights.
 
 ---
 
-## Tech Stack
+## 🏗️ System Architecture
 
-* **Infrastructure:** Docker, Docker Compose
-* **Event Streaming:** Apache Kafka, Zookeeper, Kafdrop
-* **Data Lake / Storage:** MinIO (S3 Compatible object storage)
-* **Orchestration:** Apache Airflow
-* **Data Warehouse:** Snowflake
-* **Data Transformation:** dbt-core, dbt-snowflake
-* **Programming:** Python 3.13, SQL
-* **BI Analytics:** Power BI
+### Pipeline Blueprint
+Below is the structural flow of data as it steps through your containerized local stack from ingestion to business intelligence:
+![Project Architecture Diagram](Images/Project Architecture.png)
+---
+
+## 💾 Medallion Data Models
+
+### 🥈 1. Silver Layer (`main_silver.stg_tracks`)
+Cleans, deduplicates, and casts raw unstructured tracking entries into strictly typed SQL primitives while dropping corrupt records.
+
+* **Key Transformations:** String-to-Timestamp casting (`event_timestamp`), explicit string formatting, and validation cleaning on `event_id`.
+
+### 🥇 2. Gold Layer (`main_gold`)
+Optimized data marts built to feed analytical dashboards directly without executing heavy queries at run-time.
+
+#### `fact_user_engagement`
+Aggregates behavioral clickstream interactions to construct granular, high-performance listener profiles:
+
+| Column Name | Data Type | Description |
+| :--- | :--- | :--- |
+| `user_id` | VARCHAR | Unique identifier for the streaming listener |
+| `country` | VARCHAR | User's geographic location (ISO country code) |
+| `device_type` | VARCHAR | Platform device used (e.g., Mobile, Desktop, Tablet) |
+| `total_streams` | BIGINT | Total raw log event volume |
+| `total_plays` | BIGINT | Aggregated count of completed song 'play' actions |
+| `total_skips` | BIGINT | Aggregated count of track 'skip' actions |
+| `total_playlist_adds` | BIGINT | Aggregated count of 'playlist_add' actions |
+| `unique_songs_listened` | BIGINT | Distinct count of individual tracks consumed |
+| `unique_artists_listened`| BIGINT | Distinct count of unique artists discovered |
 
 ---
 
-## Directory Structure
+## 🎨 Power BI Executive Analytics Dashboard
 
-```text
-spotify-mds-project/
-├── docker/
-│   └── docker-compose.yaml    # Core services (Kafka, Airflow, MinIO, Postgres)
-├── dbt/                       # dbt models for Raw, Cleaned, and Business Ready schemas
-├── scripts/                   # Kafka producers and consumers for Spotify API
-├── .env                       # Environment variables & pipeline credentials (local only)
-├── .gitignore                 # Excluded configurations and sensitive credentials
-├── requirements.txt           # Python project dependencies
-└── README.md
+The gold analytics data tier connects natively to an executive dashboard layout designed around Spotify's brand visual identity guidelines.
+![Spotify Analytics Dashboard Preview](Images/Spotify Real Time Dashboard)
+---
+
+## 🛠️ Tech Stack & Environment Architecture
+
+* **Orchestration:** Apache Airflow (Dockerized)
+* **Data Warehouse:** DuckDB v1.10+
+* **Data Transformation:** dbt-duckdb v1.11+
+* **Storage Engine:** MinIO S3 API Object Storage
+* **Data Visualization:** Power BI Desktop
+* **Local Processing:** Anaconda / Python 3.11 Environment (Pandas, DuckDB native adapters)
+
+---
+
+## 🚀 Deployment & Operational Sequence
+
+### 1. Spin up Core Infrastructure
+Start your containerized storage and orchestration layers via Docker Desktop:
+```bash
+cd docker
+docker-compose up -d
+### Reporting Features
+* **KPI Metrics:** Track overall streaming health, active user counts, and behavioral rates (Skip vs. Play ratio).
+* **Segmentation:** Cross-filtering maps user listening patterns to specific device platforms and geographical sectors.
